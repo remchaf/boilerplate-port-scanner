@@ -1,2 +1,4 @@
 Instructions.txt
 test.*
+.vscode*
+__pycache__
