@@ -58,16 +58,13 @@ def get_open_ports(target, port_range, verbose=False):
         for port in range(port_range[0], port_range[-1] + 1):
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                s.settimeout(1)
+                s.settimeout(2)
             
                 conn = s.connect_ex((target, port))
                 if conn == 0 :
                     service = common_ports.get(port, 'Uncommon port')
                     n = 9 - len(str(port))
-                    if port != port_range[-1]:
-                        open_ports += str(port) + (' ' * n) + service + '\n'
-                    else:
-                        open_ports += str(port) + (' ' * n) + service
+                    open_ports += str(port) + (' ' * n) + service + '\n'
                 s.close
             except socket.error :
                 s.close()
@@ -96,9 +93,3 @@ def get_open_ports(target, port_range, verbose=False):
     if verbose: return open_ports[:-1]
     return open_ports
 
-
-# result = get_open_ports("137.74.187.104", [440, 450], True)
-
-# print(result)
-# result = get_open_ports("104.26.10.78", [440, 450], True)
-# print(result)
